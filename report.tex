@@ -78,6 +78,8 @@ The purpose of this course is to understand how the Theory of Algorithms coincid
 \subsection{Week 8} During this week, the lectures covered the concept of Big O-complexity in terms of certain sorting algorithms such as bubble sort, in addition to an introduction to Complexity Theory.
 \subsection{Week 9} During this week, the lectures covered the concept of model checking in addition to how the Needham-Schroeder Key Protocol can be modeled through Spin to witness how messages can be intercepted.
 \subsection{Week 10} During this week, the lectures covered the concept of Temporal Logic and how it can be applied to solve Satisfiability problems.
+\subsection{Week 11} During this week, the lectures covered the concepts of Composing Automata in addition to writing Regular Expressions based off of Non-Definitive Automata (NFA).
+\subsection{Week 12} During this week, the lectures covered the concepts of 
 \section{Homework}\label{homework}
 
 This section contains solutions to homework. 
@@ -107,23 +109,46 @@ The objective of this week's homework is to explore exercises relating to the Ne
 \item \textbf{aliceBob} is a propositional variable that is true if and only if the partner of the first protocol, Alice, is Bob.
 \item \textbf{bobAlice} is a propositional variable that is true if and only if the partner of the second protocol, Bob, is Alice.
 \end{itemize}
-\\
-\\ The next exercise required determining which of the two formulas at the bottom of the code would violate the protocol when executed, as well as to explain the nature of the protocol based on that violation. \\
+The next exercise required determining which of the two formulas at the bottom of the code would violate the protocol when executed, as well as to explain the nature of the protocol based on that violation. \\
 \begin{itemize}
     \item The violation was caused by $$ltl \{[]  (success \&\& aliceBob \xrightarrow{} aliceBob)\}$$
     \item As the only difference between the two lines is the placement of \textbf{aliceBob} and \textbf{bobAlice} are swapped, this implies that the protocol is hard-coded such that the protocol does not get violated if Alice replies to Bob's reply, but in the event that the roles are reversed, the protocol is susceptible to intruders.
 \end{itemize}
-\\
-\\ The next exercise of the homework involved looking through the execution sequence output from the protocol violation.
+The next exercise of the homework involved looking through the execution sequence output from the protocol violation.
 \begin{itemize}
     \item The execution sequence ended up being 83 lines long, which matched up with the protocol violation message, with an additional line representing the attempt at the next check.
 \end{itemize}
-\\
-\\ The last exercise involved creating a Message Sequence Chart (MSC) that represents a successful attack on the protocol.
+The last exercise involved creating a Message Sequence Chart (MSC) that represents a successful attack on the protocol.
 \\ \includegraphics{Report Images/HW9_1.jpg}
 \begin{itemize}
     \item The MSC represents a successful attack on the protocol as the intruder has managed to message both Alice and Bob before the other is able to receive and reply to the message from a proper protocol.
 \end{itemize}
+\subsection{Week 11}
+The objective of this week's homework was to explore $\epsilon $-transitions and operations on various automata.
+\\ \includegraphics[width=15cm, height=8cm]{Report Images/HW11_1.jpg}
+\begin{itemize}
+    \item Asynchronous Parallel Composition accepts languages that are capable of operating in parallel to each other, utilizing a set of strings that consists of the combined alphabet that each language accepts.
+    \item The above example would have a regular expression of $A_{1} | A_{2} = \epsilon a + \epsilon b $
+\end{itemize}
+\includegraphics[width=15cm, height=8cm]{Report Images/HW11_2.jpg}
+\begin{itemize}
+    \item Sequential Composition accepts languages that are capable of running in a sequential sequence, that is the output of one language is used as the starting point of another language, utilizing a set of strings that both languages share.
+    \item The above example would have a regular expression of $A_{1} ; A_{2} = (a+b)\epsilon b$
+\end{itemize}
+\includegraphics[width=15cm, height=8cm]{Report Images/HW11_3.jpg}
+\begin{itemize}
+    \item Kleene Star accepts languages that are capable of infinitely repeating, starting back at the machine's initial state.
+    \item The above example would have a regular expression of $A^{*} = ab\epsilon^{*}$
+\end{itemize}
+The next section of the homework consisted of finding the DFA and regular expressions of examples from the textbook, as well as finding the $\epsilon$-NFA if the above operations were applied to the examples.
+\begin{itemize}
+    \item The set of strings over the alphabet \{ 0, 1, ... 9 \} such that the digit has appeared before.
+\end{itemize}
+\includegraphics{Report Images/HW11_4.jpg}
+\begin{itemize}
+    \item The set of strings consisting of zero or more a's followed by zero or more b's, followed by zero or more c's.
+\end{itemize}
+\includegraphics{Report Images/HW11_5.jpg}
 \section{Paper}
 
 ...
