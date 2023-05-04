@@ -79,7 +79,7 @@ The purpose of this course is to understand how the Theory of Algorithms coincid
 \subsection{Week 9} During this week, the lectures covered the concept of model checking in addition to how the Needham-Schroeder Key Protocol can be modeled through Spin to witness how messages can be intercepted.
 \subsection{Week 10} During this week, the lectures covered the concept of Temporal Logic and how it can be applied to solve Satisfiability problems.
 \subsection{Week 11} During this week, the lectures covered the concepts of Composing Automata in addition to writing Regular Expressions based off of Non-Definitive Automata (NFA).
-\subsection{Week 12} During this week, the lectures covered the concepts of 
+\subsection{Week 12} During this week, the lectures covered the concepts of Atomicity, Sequential Consistency, and Weak Memory in the context of a multi-threaded program in addition to what Safetiness, Liveliness, and Fairness are defined as within the context of a system.
 \section{Homework}\label{homework}
 
 This section contains solutions to homework. 
@@ -149,6 +149,45 @@ The next section of the homework consisted of finding the DFA and regular expres
     \item The set of strings consisting of zero or more a's followed by zero or more b's, followed by zero or more c's.
 \end{itemize}
 \includegraphics{Report Images/HW11_5.jpg}
+\subsection{Week 12} The objective of this week's homework was to explore the concepts of Mutual Exclusion with and without Atomicity in addition to the concepts of Sequential Consistency in Weak Memory through the use of online multi-threading Java Programs. \\ 
+\\ \textbf{Homework Question 1:} Have a look at \href{https://colab.research.google.com/drive/126wdCs8F_VJ7VwTcaXUv70PwAVTGzVy_?usp=sharing}{peterson.py}. What program behavior do you expect? Is your expectation confirmed when you run the program?
+\begin{itemize}
+    \item Based on the program itself, I expect the program to attempt to run both threads a total of 10000 times. The execution of each thread would iterate the "counter" of the program each time the thread is run, so I would expect the print statement at the end of the program to note that the program's counter ended at 20000. This expectation was confirmed after running the program.
+\end{itemize}
+\textbf{Homework Question 2:} Analyse the Java program \href{https://www.online-java.com/G0N5eA9tR6}{peterson} in the same way as you analysed the Python program in the previous exercise. Make sure to run the Java program on your local machine. What observations do you make?
+\begin{itemize}
+    \item Based on the program itself, I expect that the program, similar to the python program from the previous question, would attempt to run both threads a total of 10000 times as both the python and java programs share a similar code for what is defined as the "critical\textunderscore section" in the python file and what is defined as a "process" in the java file. During the execution of each thread, the program would iterate the "counter" variable after each thread has completed their process, and because both threads are running the "process" function that iterates 10000 times, I would expect the print statement at the end of the program to note that the counter ended at 10000. This expectation was confirmed after running the program.
+    \item In terms of the program's behavior when executed, the java threading program appeared to run slower than the python program.
+\end{itemize} 
+\textbf{Homework Question 3:} Explain why the outcome \textbf{a} $=$ \textbf{0}, \textbf{b} $=$ \textbf{0} is not sequentially consistent, but the other three outcomes are.
+\begin{itemize}
+    \item The outcome \textbf{a} $=$ \textbf{0}, \textbf{b} $=$ \textbf{0} is not sequentially consistent within the context of the threading model as defined by \href{https://www.online-java.com/yFkZ4HqfRG}{memoryModel} as there exists no currently existing iteration within the program that would compute and read both \textbf{a} and \textbf{b} as \textbf{0} before they are overwritten by the values of \textbf{x} and \textbf{y}. Currently, getting both \textbf{a} and \textbf{b} as \textbf{0} could be possible without the resetting of all variables at the end of \textit{runTest()}.
+\end{itemize}
+\textbf{Homework Question 4:} Report the results you get from running \href{https://www.online-java.com/yFkZ4HqfRG}{memoryModelWithStats} on your local machine. Include the specs of your processor, in particular the number of cores. If you can find out something about the caches, add this as well.
+\begin{itemize}
+    \item Processor Information:
+    \begin{itemize}
+        \item Name: Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz   2.71 GHz
+        \item Base Speed: 2.71 GHz
+        \item Number of Sockets: 1
+        \item Number of Cores: 2
+        \item L1 Cache: 128 KB
+        \item L2 Cache: 512 KB
+        \item L3 Cache: 3.0 MB
+    \end{itemize}
+    \item Results from \href{https://www.online-java.com/yFkZ4HqfRG}{memoryModelWithStats} :
+    \begin{itemize}
+        \item (0, 0): 0
+        \item (0, 1): 538
+        \item (1, 0): 461
+        \item (1, 1): 1
+    \end{itemize}
+\end{itemize}
+\textbf{Homework Question 5:} You can force sequential consistency of \href{https://www.online-java.com/yFkZ4HqfRG}{memoryModelWithStats} by declaring certain variables volatile. In general, declaring variables as volatile comes at cost in execution time, so we want to use this sparingly. Which variables must be declare as volatile to ensure sequential consistency? Measure and report the effect that volatile has on your run time (I use java Main | gnomon).
+\begin{itemize}
+    \item In the \href{https://www.online-java.com/yFkZ4HqfRG}{memoryModelWithStats}, the variables that needed to be declared as volatile in order to ensure sequential consistency were the \textit{x} and \textit{y} variables, as those variables are shared, used, and updated across both created threads. By declaring them as volatile, this helps ensure sequential consistency as declaring them as volatile applies the "lock" that the previous programs were missing, protecting them during the "critical section" of each respective thread.
+    \item Setting the variables \textit{x} and \textit{y} had affected the runtime of the program as the original program had an initial runtime of 9.875962 seconds, whereas the modified code had a runtime of 11.0930762 seconds. As I had difficulty installing gnomon, I used the Instant and Duration Java packages in order to record the respective runtimes of the program.
+\end{itemize}
 \section{Paper}
 
 ...
